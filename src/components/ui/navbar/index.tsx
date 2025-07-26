@@ -1,5 +1,6 @@
 import { ModeToggle } from "../../mode-toggle";
 import { SidebarTrigger } from "../sidebar";
+import Navprofile from "./nav-profile";
 
 export default function Navbar() {
   return (
@@ -8,7 +9,7 @@ export default function Navbar() {
         <SidebarTrigger size="icon" />
         <div className="ml-auto flex items-center gap-2">
           <ModeToggle />
-          {/* <NavProfile /> */}
+          <Navprofile />
         </div>
       </nav>
     </header>

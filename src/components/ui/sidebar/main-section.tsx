@@ -10,7 +10,8 @@ import {
 } from "../sidebar";
 import {
   ChevronsUpDown,
-  LayoutDashboardIcon
+  LayoutDashboardIcon,
+  ShoppingBag
 } from "lucide-react";
 import { Link, useLocation } from "react-router";
 import {
@@ -24,12 +25,16 @@ const items = [
     title: "Dashboard",
     url: "/dashboard",
     icon: LayoutDashboardIcon,
-    key: "",
   },
- 
   {
     title: "product",
-    url: "/dashboard",
+    url: "/dashboard/products",
+    icon: ShoppingBag,
+  },
+
+  {
+    title: "product",
+    url: "/products",
     icon: LayoutDashboardIcon,
     key: "",
     children : [

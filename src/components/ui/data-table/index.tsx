@@ -1,10 +1,10 @@
 import {
-  ColumnDef,
+  type ColumnDef,
   flexRender,
   getCoreRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  SortingState,
+  type SortingState,
   useReactTable,
 } from "@tanstack/react-table";
 
@@ -59,7 +59,7 @@ const DataTable = <TData, TValue>({
   return (
     <div>
       <div className="mt-5 rounded-md border">
-        {data === undefined ? (
+        {(data === undefined   ) ? (
           <TableSkeleton />
         ) : (
           <>

@@ -1,6 +1,6 @@
-import { ColumnDef } from "@tanstack/react-table";
 import { DataTableColumnHeader } from "@/components/ui/data-table/data-table-column-header";
-import { Pagination } from "@/types/global";
+import type { Pagination } from "@/types/global";
+import type { ColumnDef } from "@tanstack/react-table";
 
 // Generic reusable row number column
 export function getRowNumberColumn<T>(pagination?: Pagination): ColumnDef<T> {
