@@ -1,6 +1,7 @@
 import type { RouteObject } from "react-router";
 import ProductListPage from "./pages/products-list";
 import CreateProduct from "./pages/create-product";
+import EditProduct from "./pages/edit-product";
 
 
 export const productRoutes: RouteObject[] = [
@@ -16,11 +17,10 @@ export const productRoutes: RouteObject[] = [
                 path: "create",
                 element: <CreateProduct />,
             },
-            // {
-            //     path: "edit/:id",
-            //     element: <EditDelivery />,
-            //     meta: { resource: "delivery", action: "update" },
-            // },
+            {
+                path: "edit/:id",
+                element: <EditProduct />,
+            },
         ],
     },
 ];

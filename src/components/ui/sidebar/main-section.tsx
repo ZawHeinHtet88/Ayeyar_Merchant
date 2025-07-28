@@ -27,25 +27,25 @@ const items = [
     icon: LayoutDashboardIcon,
   },
   {
-    title: "product",
+    title: "Products",
     url: "/dashboard/products",
     icon: ShoppingBag,
   },
 
-  {
-    title: "product",
-    url: "/products",
-    icon: LayoutDashboardIcon,
-    key: "",
-    children : [
-      {
-        title: "Dashboard",
-        url: "/dashboard",
-        icon: LayoutDashboardIcon,
-        key: "",
-      },
-    ]
-  },
+  // {
+  //   title: "product",
+  //   url: "/products",
+  //   icon: LayoutDashboardIcon,
+  //   key: "",
+  //   children : [
+  //     {
+  //       title: "Dashboard",
+  //       url: "/dashboard",
+  //       icon: LayoutDashboardIcon,
+  //       key: "",
+  //     },
+  //   ]
+  // },
 ];
 
 const MainSection = () => {

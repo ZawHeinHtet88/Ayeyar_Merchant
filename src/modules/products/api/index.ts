@@ -1,9 +1,6 @@
 import { api } from "@/lib/axios";
 import type { BasePagination } from "@/types/global";
-import type {
-  getAllProductsApiResponse,
-  getAllTypeApiResponse,
-} from "../types/api";
+import type { getAllProductsApiResponse, getAllTypeApiResponse, getProductApiResponse } from "../types/api";
 
 export const getAllProducts = async (filters: BasePagination) => {
   const res = await api.get<getAllProductsApiResponse>("/seller/products", {
@@ -33,6 +30,22 @@ export const deleteProduct = async (id: string) => {
 
 export const getAllProductType = async () => {
   const res = await api.get<getAllTypeApiResponse>(`/user/types`);
+
+  return res.data;
+};
+
+export const getProduct = async (id: string) => {
+  const res = await api.get<getProductApiResponse>(`/seller/products/${id}`);
+
+  return res.data;
+};
+
+export const updateProduct = async (data: FormData) => {
+  const res = await api.patch(`/seller/products`, data, {
+    headers: {
+      "Content-Type": "multipart/form-data",  
+    },
+  });
 
   return res.data;
 };

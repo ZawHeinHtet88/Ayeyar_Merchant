@@ -7,3 +7,4 @@ export const login = async ({ data }: { data: LoginSchemaType }) => {
 
     return res.data;
 };
+

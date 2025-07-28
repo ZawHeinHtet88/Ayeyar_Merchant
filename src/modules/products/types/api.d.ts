@@ -6,7 +6,10 @@ export interface getAllProductsApiResponse extends BaseApiResponse {
   pagination: Pagination;
 }
 
-
 export interface getAllTypeApiResponse extends BaseApiResponse {
-    data : Type[]
+  data: Type[];
+}
+
+export interface getProductApiResponse extends BaseApiResponse {
+  data: Product;
 }

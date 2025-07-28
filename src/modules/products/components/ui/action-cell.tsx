@@ -28,7 +28,7 @@ export default function ProductActionCell({ product }: { product: Product }) {
     <AlertDialog>
       <div className="space-x-2">
         
-          <Link to={`/dashboard/deliveries/edit/${product.id}`}>
+          <Link to={`/dashboard/products/edit/${product.id}`}>
             <ActionButton actionType="edit" />
           </Link>
        

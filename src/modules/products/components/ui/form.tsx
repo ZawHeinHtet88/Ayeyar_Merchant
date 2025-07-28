@@ -8,22 +8,39 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router";
 import {
   ProductSchema,
   type ProductSchemaType,
 } from "../../schemas/index.schema";
 import type { Product } from "../../types";
-import { useCreateProductMutation } from "../../hooks/mutation";
+import {
+  useCreateProductMutation,
+  useUpdateProductMutation,
+} from "../../hooks/mutation";
 import { toast } from "sonner";
 import type { BaseApiResponse } from "@/types/global";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useGetAllTypeQuery } from "../../hooks/queries";
+import { getImageUrl } from "@/utils/images";
+import { useNavigate } from "react-router-dom";
+import { TextEditor } from "@/components/ui/text-editor/text-editor";
+import MultipleImageInput from "@/components/ui/multiple-image-upload";
+
+interface updated_images{
+  type : string;
+  key ?: string;
+  index : number;
+}
 
 export const ProductForm = ({
   mode,
@@ -33,6 +50,9 @@ export const ProductForm = ({
   product?: Product;
 }) => {
   const isEdit = mode == "edit";
+  const imgWithFullUrl = product?.images?.map((image) =>
+    getImageUrl({ resource: "images", fileName: image })
+  );
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
@@ -51,6 +71,7 @@ export const ProductForm = ({
           category: product?.category?.name ?? "",
           type: product?.type?.name ?? "",
           tags: product?.tags?.map((tag) => tag.name).join(",") ?? "",
+          images: imgWithFullUrl,
         }
       : {
           name: "",
@@ -67,7 +88,7 @@ export const ProductForm = ({
 
   const { mutateAsync: createMutateAsync } = useCreateProductMutation();
 
-  // const { mutateAsync: updateMutateAsync } = useUpdateUserMutation();
+  const { mutateAsync: updateMutateAsync } = useUpdateProductMutation();
 
   async function onSubmit(values: ProductSchemaType) {
     const data = new FormData();
@@ -80,23 +101,37 @@ export const ProductForm = ({
     data.set("type", values.type);
     data.set("tags", values.tags);
 
+    const images:updated_images[] = [];
     // Handle multiple images
     if (values.images && Array.isArray(values.images)) {
-      values.images.forEach((file) => {
-        data.append("images", file);
-      });
+      if (isEdit) {
+        values.images.map((file, index) => {
+          if (file instanceof File) {
+            images.push({ type: "new", index });
+            data.append("images", file);
+          } else {
+            const imageUrl = file?.split("/").pop();
+            images.push({ type: "kept", key: imageUrl, index });
+          }
+        });
+      } else {
+        values.images.forEach((file) => {
+          data.append("images", file);
+        });
+      }
     }
 
-    console.log(values);
-
-    let res: BaseApiResponse | undefined;
-    if (isEdit) {
-      // res = await updateMutateAsync({ data, id: product?._id || "" });
+    let res: BaseApiResponse;
+    if (isEdit && product) {
+      data.set("update_images", JSON.stringify(images));
+      data.set("productId", product?.id);
+      res = await updateMutateAsync(data);
+      console.log(res);
     } else {
       res = await createMutateAsync(data);
     }
-    if (res && res.isSuccess) {
-      toast.success(res.status);
+    if (res.isSuccess) {
+      toast.success(isEdit ? "Updated Successfully" : "Created Successfully");
       queryClient.invalidateQueries({ queryKey: ["products"] });
       navigate("/dashboard/products");
     }
@@ -115,7 +150,7 @@ export const ProductForm = ({
               <FormItem>
                 <FormLabel>Name</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} placeholder="Name ...." />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -138,26 +173,12 @@ export const ProductForm = ({
 
           <FormField
             control={form.control}
-            name="discount"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Discount</FormLabel>
-                <FormControl>
-                  <Input type="number" placeholder="Discount..." {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
             name="description"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Description</FormLabel>
                 <FormControl>
-                  <Textarea placeholder="Description..." {...field} />
+                  <Input placeholder="Description..." {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -168,104 +189,96 @@ export const ProductForm = ({
             control={form.control}
             name="body"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-3">
                 <FormLabel>Body</FormLabel>
                 <FormControl>
-                  <Textarea placeholder="body..." {...field} />
+                  <TextEditor field={field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-
-          <FormField
-            control={form.control}
-            name="type"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Type *</FormLabel>
-                <Select
-                  onValueChange={(value) => {
-                    field.onChange(value);
-                   
-                  }}
-                  value={field.value}
-                >
+          <div className="col-span-3 grid grid-cols-4 gap-5">
+            <FormField
+              control={form.control}
+              name="type"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Type *</FormLabel>
+                  <Select
+                    onValueChange={(value) => {
+                      field.onChange(value);
+                    }}
+                    value={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Select Type..." />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {types?.data?.map((type) => (
+                        <SelectItem key={type._id} value={type.name}>
+                          {type.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="category"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Category</FormLabel>
                   <FormControl>
-                    <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Select Type..." />
-                    </SelectTrigger>
+                    <Input placeholder="Category..." {...field} />
                   </FormControl>
-                  <SelectContent>
-                    {types?.data?.map((type) => (
-                      <SelectItem key={type._id} value={type._id}>
-                        {type.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="category"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Category</FormLabel>
-                <FormControl>
-                  <Input placeholder="Category..." {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-          <FormField
-            control={form.control}
-            name="inventory"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Inventory</FormLabel>
-                <FormControl>
-                  <Input placeholder="Inventory..." {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+            <FormField
+              control={form.control}
+              name="inventory"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Inventory</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Inventory..." {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-          <FormField
-            control={form.control}
-            name="tags"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Tags</FormLabel>
-                <FormControl>
-                  <Input placeholder="Tags..." {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+            <FormField
+              control={form.control}
+              name="tags"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Tags</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Tags..." {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
 
           <FormField
             control={form.control}
             name="images"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="col-span-2">
                 <FormLabel>Images</FormLabel>
                 <FormControl>
-                  <Input
-                    type="file"
-                    multiple
-                    accept="image/*"
-                    onChange={(e) => {
-                      const files = Array.from(e.target.files ?? []);
-                      field.onChange(files);
-                    }}
-                  />
+                  <MultipleImageInput field={field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

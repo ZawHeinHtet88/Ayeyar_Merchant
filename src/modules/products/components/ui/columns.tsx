@@ -63,14 +63,14 @@ export const columns: (
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Category" />
     ),
-    accessorKey: "category",
+    accessorKey: "category.name",
   },
   {
     id: "type",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Type" />
     ),
-    accessorKey: "type",
+    accessorKey: "type.name",
   },
   {
     id: "tags",
@@ -82,7 +82,7 @@ export const columns: (
       return (
         <div className="space-x-2">
           {product?.tags?.map((tag, i) => (
-            <Badge key={i}>{tag}</Badge>
+            <Badge key={i}>{tag.name}</Badge>
           ))}
         </div>
       );

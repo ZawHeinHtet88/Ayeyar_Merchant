@@ -1,17 +1,24 @@
 import { useQuery } from "@tanstack/react-query"
-import { getAllProducts, getAllProductType } from "../api"
+import { getAllProducts, getAllProductType, getProduct } from "../api"
 import type { BasePagination } from "@/types/global"
 
 export const useGetAllProductQuery = (filters:BasePagination) => {
     return useQuery({
-        queryKey: ["products"],
+        queryKey: ["products",filters],
         queryFn: ()=>getAllProducts(filters)
     })
 }
 
 export const useGetAllTypeQuery = () => {
   return useQuery({
-    queryKey: ["products"],
+    queryKey: ["types"],
     queryFn: getAllProductType,
   });
 };
+
+export  const useGetProductQuery = (id:string) => {
+  return useQuery({
+    queryKey : ["product"],
+    queryFn : () => getProduct(id)
+  })
+}
