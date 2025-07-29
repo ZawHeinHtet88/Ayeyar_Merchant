@@ -4,47 +4,71 @@ import type { Pagination } from "@/types/global";
 import type { ColumnDef } from "@tanstack/react-table";
 import "react-photo-view/dist/react-photo-view.css";
 import type { Order } from "../types";
+import { Badge } from "@/components/ui/badge";
+import OrderActionCell from "./action-cell";
 
 export const columns: (
   pagintaion: Pagination | undefined
 ) => ColumnDef<Order>[] = (pagination) => [
   getRowNumberColumn(pagination),
   {
-    id: "name",
+    id: "order_code",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Name" />
+      <DataTableColumnHeader column={column} title="Order Code" />
     ),
-    accessorKey: "name",
+    accessorKey: "code",
   },
   {
-    id: "category",
+    id: "Product Name",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Category" />
+      <DataTableColumnHeader column={column} title="Product Name" />
     ),
-    accessorKey: "category.name",
+    accessorKey: "productId.name",
   },
   {
-    id: "type",
+    id: "Quantity",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Type" />
+      <DataTableColumnHeader column={column} title="Quantity" />
     ),
-    accessorKey: "type.name",
-  },
-  
-  {
-    id: "price",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="price" />
-    ),
-    accessorKey: "price",
-  },
-  {
-    id: "inventory",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Inventory" />
-    ),
-    accessorKey: "inventory",
+    accessorKey: "quantity",
   },
 
- 
+  {
+    id: "status",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Status" />
+    ),
+    accessorKey: "status",
+  },
+  {
+    id: "paymentmethod",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Payment Method" />
+    ),
+    accessorKey: "payment",
+  },
+  {
+    id: "isDelivery",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Is Delivery" />
+    ),
+    cell: ({ row }) => {
+      const order = row.original;
+
+      return order.isDelivered ? (
+        <Badge>Yes</Badge>
+      ) : (
+        <Badge variant={"destructive"}>No</Badge>
+      );
+    },
+  },
+  {
+    id: "actions",
+    header : "Actions",
+    cell : ({row})=> {
+      const order = row.original;
+
+      return <OrderActionCell order={order}/>
+    }
+  },
 ];
