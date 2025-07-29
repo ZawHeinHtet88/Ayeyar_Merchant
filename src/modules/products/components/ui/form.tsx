@@ -133,6 +133,7 @@ export const ProductForm = ({
     if (res.isSuccess) {
       toast.success(isEdit ? "Updated Successfully" : "Created Successfully");
       queryClient.invalidateQueries({ queryKey: ["products"] });
+      queryClient.invalidateQueries({ queryKey: ["product"] });
       navigate("/dashboard/products");
     }
   }

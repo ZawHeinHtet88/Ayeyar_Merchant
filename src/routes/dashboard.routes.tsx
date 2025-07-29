@@ -3,6 +3,8 @@ import type { RouteObject } from "react-router";
 import DashboardLayout from "../components/layouts/dashboard-layout";
 import AuthGuard from "@/middlewares/auth-guard";
 import { productRoutes } from "@/modules/products/routes";
+import { homeRoute } from '@/modules/home/routes';
+import { orderRoutes } from "@/modules/orders/routes";
 
 export const dashboardRoutes: RouteObject[] = [
   {
@@ -13,7 +15,9 @@ export const dashboardRoutes: RouteObject[] = [
       </AuthGuard>
     ),
     children: [
-      ...productRoutes
+      ...productRoutes,
+      ...homeRoute,
+      ...orderRoutes
     ],
   },
 ];

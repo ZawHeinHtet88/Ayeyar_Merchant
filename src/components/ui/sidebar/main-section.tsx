@@ -11,6 +11,7 @@ import {
 import {
   ChevronsUpDown,
   LayoutDashboardIcon,
+  ReceiptIcon,
   ShoppingBag
 } from "lucide-react";
 import { Link, useLocation } from "react-router";
@@ -20,7 +21,14 @@ import {
   CollapsibleTrigger,
 } from "../collapsible";
 
-const items = [
+type SidebarItem = {
+  title: string;
+  url: string;
+  icon: React.ElementType;
+  children?: SidebarItem[];
+};
+
+const items: SidebarItem[] = [
   {
     title: "Dashboard",
     url: "/dashboard",
@@ -31,6 +39,11 @@ const items = [
     url: "/dashboard/products",
     icon: ShoppingBag,
   },
+  {
+    title : "Orders",
+    url : "/dashboard/orders",
+    icon : ReceiptIcon
+  }
 
   // {
   //   title: "product",
@@ -58,7 +71,6 @@ const MainSection = () => {
         <SidebarMenu>
           {items.map((item) => {
             
-
             if (item.children) {
               return (
                 <Collapsible className="group/collapsible" key={item.title}>
