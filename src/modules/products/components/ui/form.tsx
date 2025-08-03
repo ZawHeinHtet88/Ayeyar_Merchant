@@ -8,21 +8,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useQueryClient } from "@tanstack/react-query";
-import { useForm } from "react-hook-form";
-import {
-  ProductSchema,
-  type ProductSchemaType,
-} from "../../schemas/index.schema";
-import type { Product } from "../../types";
-import {
-  useCreateProductMutation,
-  useUpdateProductMutation,
-} from "../../hooks/mutation";
-import { toast } from "sonner";
-import type { BaseApiResponse } from "@/types/global";
+import MultipleImageInput from "@/components/ui/multiple-image-upload";
 import {
   Select,
   SelectContent,
@@ -30,11 +16,25 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useGetAllTypeQuery } from "../../hooks/queries";
-import { getImageUrl } from "@/utils/images";
-import { useNavigate } from "react-router-dom";
 import { TextEditor } from "@/components/ui/text-editor/text-editor";
-import MultipleImageInput from "@/components/ui/multiple-image-upload";
+import { cn } from "@/lib/utils";
+import type { BaseApiResponse } from "@/types/global";
+import { getImageUrl } from "@/utils/images";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useQueryClient } from "@tanstack/react-query";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import {
+  useCreateProductMutation,
+  useUpdateProductMutation,
+} from "../../hooks/mutation";
+import { useGetAllTypeQuery } from "../../hooks/queries";
+import {
+  ProductSchema,
+  type ProductSchemaType,
+} from "../../schemas/index.schema";
+import type { Product } from "../../types";
 
 interface updated_images{
   type : string;
@@ -100,7 +100,7 @@ export const ProductForm = ({
     data.set("category", values.category);
     data.set("type", values.type);
     data.set("tags", values.tags);
-
+    
     const images:updated_images[] = [];
     // Handle multiple images
     if (values.images && Array.isArray(values.images)) {

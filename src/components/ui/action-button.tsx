@@ -32,7 +32,7 @@ const ActionButton = ({ actionType, ...rest }: Props) => {
           )}
         </TooltipTrigger>
         <TooltipContent>
-          <p className="captilize">actionType</p>
+          <p className="captilize">{actionType}</p>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>

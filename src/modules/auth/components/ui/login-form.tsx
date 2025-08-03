@@ -37,6 +37,8 @@ export const LoginForm = () => {
     if (res.status === "fail") {
       toast.error(res.message);
     } else {
+      console.log(res.data.user);
+      
       login({
         token: res.token,
         user: res.data.user,

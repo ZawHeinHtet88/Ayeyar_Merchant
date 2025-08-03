@@ -24,6 +24,7 @@ export const useAuthStore = create<AuthStore>()(
           user: null,
           token: null,
           isAuthenticated: false,
+          
         });
         localStorage.removeItem("userData");
       },
@@ -35,7 +36,7 @@ export const useAuthStore = create<AuthStore>()(
       },
     }),
     {
-      name: "merchantData",
+      name: "admin-merchant",
       partialize: (state) => ({
         isAuthenticated: state.isAuthenticated,
         user: state.user,

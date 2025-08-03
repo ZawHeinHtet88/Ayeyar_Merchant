@@ -5,6 +5,7 @@ import AuthGuard from "@/middlewares/auth-guard";
 import { productRoutes } from "@/modules/products/routes";
 import { homeRoute } from '@/modules/home/routes';
 import { orderRoutes } from "@/modules/orders/routes";
+import { merchantRoutes } from "@/modules/merchants/routes";
 
 export const dashboardRoutes: RouteObject[] = [
   {
@@ -17,7 +18,8 @@ export const dashboardRoutes: RouteObject[] = [
     children: [
       ...productRoutes,
       ...homeRoute,
-      ...orderRoutes
+      ...orderRoutes,
+      ...merchantRoutes
     ],
   },
 ];

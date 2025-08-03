@@ -19,18 +19,25 @@ export const columns: (
     accessorKey: "code",
   },
   {
-    id: "Product Name",
+    id: "customerName",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Product Name" />
+      <DataTableColumnHeader column={column} title="Customer Name" />
     ),
-    accessorKey: "productId.name",
+    accessorKey: "user.name",
   },
   {
-    id: "Quantity",
+    id: "customerEmail",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Quantity" />
+      <DataTableColumnHeader column={column} title="Email" />
     ),
-    accessorKey: "quantity",
+    accessorKey: "user.email",
+  },
+  {
+    id: "totalProducts",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Total Products" />
+    ),
+    accessorKey: "totalProducts",
   },
 
   {
@@ -64,11 +71,11 @@ export const columns: (
   },
   {
     id: "actions",
-    header : "Actions",
-    cell : ({row})=> {
+    header: "Actions",
+    cell: ({ row }) => {
       const order = row.original;
 
-      return <OrderActionCell order={order}/>
-    }
+      return <OrderActionCell order={order} />;
+    },
   },
 ];

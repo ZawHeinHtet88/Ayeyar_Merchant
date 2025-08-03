@@ -1,10 +1,10 @@
 import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 
 import { Button } from "@/components/ui/button";
@@ -12,20 +12,20 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import {
-    Drawer,
-    DrawerClose,
-    DrawerContent,
-    DrawerFooter,
-    DrawerHeader,
-    DrawerTitle,
-    DrawerTrigger,
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
 } from "@/components/ui/drawer";
 import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from "@/components/ui/select";
 import { useQueryClient } from "@tanstack/react-query";
 import { Loader, Pencil } from "lucide-react";
@@ -35,25 +35,21 @@ import { useUpdateOrderMutation } from "../hooks/mutation";
 import { OrderSchema, type OrderSchemaType } from "../schemas/index.schema";
 import type { Order } from "../types";
 
-export const UpdateOrderForm = ({
-  order
-}: {
-  order : Order
-}) => {
+export const UpdateOrderForm = ({ order }: { order: Order }) => {
   const queryClient = useQueryClient();
   const [open, setOpen] = useState(false);
 
   const form = useForm<OrderSchemaType>({
     resolver: zodResolver(OrderSchema),
     defaultValues: {
-      status : order.status,
+      status: order.status,
     },
   });
 
   const { mutateAsync } = useUpdateOrderMutation();
 
   async function onSubmit(values: OrderSchemaType) {
-    const res = await mutateAsync({ status: values.status, id : order._id });
+    const res = await mutateAsync({ status: values.status, id: order.code });
 
     if (res.isSuccess) {
       toast.success("Update Successfully");
@@ -73,7 +69,7 @@ export const UpdateOrderForm = ({
             setOpen(true);
           }}
         >
-          <Pencil/>
+          <Pencil />
         </Button>
       </DrawerTrigger>
       <DrawerContent>
@@ -106,6 +102,7 @@ export const UpdateOrderForm = ({
                       <SelectContent>
                         {[
                           "pending",
+                          "processing",
                           "confirm",
                           "cancel",
                           "delivery",

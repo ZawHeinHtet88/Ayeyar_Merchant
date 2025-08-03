@@ -4,7 +4,7 @@ import { Link } from "react-router";
 
 export default function UnauthorizedPage() {
   return (
-    <div className="grid h-screen w-screen place-content-center">
+    <div className="w-full h-full flex-col flex items-center justify-center">
       <h1 className="text-2xl font-bold">401 | Unauthorized Access</h1>
       <Button asChild className="my-2">
         <Link to="/dashboard" className="flex items-center gap-2">

@@ -1,28 +1,24 @@
-import type { Product } from "@/modules/products/types";
+export interface OrderProduct {
+  productId: string;
+  quantity: number;
+  name: string;
+  price: number;
+  totalPrice: number;
+}
 
 export interface Order {
-  _id:string;
-  code: string;
-  productId:Product ;
-  userId: {
-    _id: string;
+  status: string;
+  createdAt: string;
+  user: {
     name: string;
     email: string;
-    role: string;
-    shippingAddresses: [];
-    paymentMethods: [];
-    createdAt: string;
-    updatedAt:string;
-    id: string;
+    shippingAddresses: string[];
   };
-  payment: string;
   isPaid: boolean;
-  status: string;
-  quantity: number;
-  merchant: string;
+  payment: string;
   isDelivered: boolean;
-  inventoryReserved: boolean;
-  createdAt: string;
-  updatedAt: string;
-  id: string;
+  totalProducts: number;
+  products: OrderProduct[];
+  totalAmount: number;
+  code: string;
 }
