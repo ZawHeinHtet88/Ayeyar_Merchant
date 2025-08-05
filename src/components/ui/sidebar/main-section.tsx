@@ -10,6 +10,7 @@ import {
 } from "../sidebar";
 import {
   ChevronsUpDown,
+  Layers2,
   LayoutDashboardIcon,
   Podcast,
   ReceiptIcon,
@@ -69,6 +70,12 @@ const items: SidebarItem[] = [
     icon: Podcast,
     key: "admin",
   },
+  {
+    title :"Types",
+    url : "/dashboard/types",
+    icon : Layers2,
+    key : "admin"
+  }
 
   // {
   //   title: "product",

@@ -3,28 +3,31 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import DataTable from "@/components/ui/data-table";
 import { useState } from "react";
 import { columns } from "../components/ui/columns";
-import { useGetAllAdsQuery } from "../hooks/queries";
-import { CreateAdsForm } from "./create-ads";
+import { useGetAllTypeQuery } from "../hooks/queries";
+import { CreateTypeForm } from "./create-type";
 
-export default function AdsListPage() {
+export default function TypeListPage() {
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 10,
   });
 
-  const { data } = useGetAllAdsQuery({
+  const { data } = useGetAllTypeQuery({
     page: pagination.pageIndex + 1,
     limit: pagination.pageSize,
-  });
+  });   
+
 
   return (
     <section className="flex flex-col gap-4">
-      <BreadCrumps breadcrumbs={[{ label: "Ads", href: "/dashboard/ads" }]} />
+      <BreadCrumps
+        breadcrumbs={[{ label: "types", href: "/dashboard/types" }]}
+      />
       <Card>
         <CardHeader>
           <CardTitle className="flex w-full items-center justify-between">
-            <h1>Ads</h1>
-            <CreateAdsForm />
+            <h1>Types</h1>
+            <CreateTypeForm/>
           </CardTitle>
         </CardHeader>
         <CardContent>

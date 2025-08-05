@@ -25,6 +25,10 @@ export const updateAds = async ({
 }) => {
   const res = await api.patch(`/admin/ads`, {
     data
+  },{
+    headers : {
+      "Content-Type": "multipart/form-data",
+    }
   });
   return res.data;
 };
