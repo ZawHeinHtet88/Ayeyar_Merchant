@@ -12,6 +12,9 @@ const EditMerchant = () => {
 
   if(isLoading) return "loading..."
 
+  console.log(data?.seller);
+  
+
   return (
     <div className="flex flex-col gap-4">
       <BreadCrumps
@@ -28,7 +31,7 @@ const EditMerchant = () => {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <Merchantform mode="edit" merchant={data?.data} />
+          <Merchantform mode="edit" merchant={data?.seller} />
         </CardContent>
       </Card>
     </div>

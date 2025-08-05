@@ -7,5 +7,5 @@ export interface getAllMerchantsApiResponse extends BaseApiResponse {
 }
 
 export interface getSingleMerchantApiResponse extends BaseApiResponse {
-  data : Merchant
+  seller : Merchant
 }

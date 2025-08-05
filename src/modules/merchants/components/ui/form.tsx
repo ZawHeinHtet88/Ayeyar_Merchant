@@ -119,7 +119,7 @@ export const Merchantform = ({
       toast.success(res.status);
       queryClient.invalidateQueries({ queryKey: ["merchants"] });
 
-      navigate("/dashboard/merchants")
+      navigate("/dashboard/merchants");
     }
   }
   return (
@@ -285,34 +285,37 @@ export const Merchantform = ({
               </FormItem>
             )}
           />
+          {!isEdit && (
+            <>
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Password..." {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Password</FormLabel>
-                <FormControl>
-                  <Input placeholder="Password..." {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="passwordConfirm"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Password Confirm</FormLabel>
-                <FormControl>
-                  <Input placeholder="Password Confirm..." {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+              <FormField
+                control={form.control}
+                name="passwordConfirm"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Password Confirm</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Password Confirm..." {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </>
+          )}
 
           <FormField
             control={form.control}

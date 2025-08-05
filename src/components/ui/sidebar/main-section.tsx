@@ -11,6 +11,7 @@ import {
 import {
   ChevronsUpDown,
   LayoutDashboardIcon,
+  Podcast,
   ReceiptIcon,
   ShoppingBag,
   Users,
@@ -60,6 +61,12 @@ const items: SidebarItem[] = [
     title: "Merchants",
     url: "/dashboard/merchants",
     icon: Users,
+    key: "admin",
+  },
+  {
+    title: "Ads",
+    url: "/dashboard/ads",
+    icon: Podcast,
     key: "admin",
   },
 

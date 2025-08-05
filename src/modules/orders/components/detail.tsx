@@ -1,6 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
   Sheet,
   SheetClose,
@@ -11,32 +9,40 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { Eye } from "lucide-react";
+import type { Order } from "../types";
 
-export function OrderDetails() {
+export function OrderDetails({ order }: { order: Order }) {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="outline">Open</Button>
+        <Button size={"icon"} variant="outline">
+          <Eye />
+        </Button>
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>
-          <SheetTitle>Edit profile</SheetTitle>
+          <SheetTitle>Orders Details</SheetTitle>
           <SheetDescription>
-            Make changes to your profile here. Click save when you&apos;re done.
+            {order.code}
+            <h4 className="font-bold">Products - {order.products.length}</h4>
           </SheetDescription>
         </SheetHeader>
-        <div className="grid flex-1 auto-rows-min gap-6 px-4">
-          <div className="grid gap-3">
-            <Label htmlFor="sheet-demo-name">Name</Label>
-            <Input id="sheet-demo-name" defaultValue="Pedro Duarte" />
-          </div>
-          <div className="grid gap-3">
-            <Label htmlFor="sheet-demo-username">Username</Label>
-            <Input id="sheet-demo-username" defaultValue="@peduarte" />
+        <div className="grid flex-1 auto-rows-min gap-6 border mx-4 rounded-2xl">
+          <div>
+            {order.products.map((product) => (
+              <div className="p-5 border-b-1">
+                <h4>{product.name}</h4>
+                <div className="">
+                  <p>Price - {product.price}</p>
+                  <p>Quantity - {product.quantity}</p>
+                  <p>Total - {product.totalPrice}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
         <SheetFooter>
-          <Button type="submit">Save changes</Button>
           <SheetClose asChild>
             <Button variant="outline">Close</Button>
           </SheetClose>
