@@ -23,6 +23,7 @@ export const productRoutes: RouteObject[] = [
                 path: "edit/:id",
                 element: <EditProduct />,
             },
+            
         ],
     },
 ];

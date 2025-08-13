@@ -75,6 +75,11 @@ const items: SidebarItem[] = [
     url : "/dashboard/types",
     icon : Layers2,
     key : "admin"
+  },{
+    title : "Customer Support",
+    url : "/dashboard/customers-support",
+    icon : Users,
+    key : "admin"
   }
 
   // {

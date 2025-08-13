@@ -8,6 +8,7 @@ import { orderRoutes } from "@/modules/orders/routes";
 import { merchantRoutes } from "@/modules/merchants/routes";
 import { adsRoutes } from "@/modules/ads/routes";
 import { typeRoutes } from "@/modules/types/routes";
+import { customerSupportRoutes } from "@/modules/customerSupports/routes";
 
 export const dashboardRoutes: RouteObject[] = [
   {
@@ -23,7 +24,8 @@ export const dashboardRoutes: RouteObject[] = [
       ...orderRoutes,
       ...merchantRoutes,
       ...adsRoutes,
-      ...typeRoutes
+      ...typeRoutes,
+      ...customerSupportRoutes
     ],
   },
 ];
