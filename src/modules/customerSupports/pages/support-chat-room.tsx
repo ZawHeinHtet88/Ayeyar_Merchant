@@ -31,9 +31,10 @@ export default function SupportChatRoom() {
   useEffect(() => {
     if (!socket) return;
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const onReceive = (msg: any) => {
       console.log("Received message:", msg);
-
+      
       // Ignore if the message originated from me
       const senderId = String(msg?.sender?._id ?? msg?.sender ?? "");
       if (senderId === String(user?.id ?? "")) return;

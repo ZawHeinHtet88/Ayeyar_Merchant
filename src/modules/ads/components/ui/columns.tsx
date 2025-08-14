@@ -6,6 +6,7 @@ import { PhotoProvider, PhotoView } from "react-photo-view";
 import "react-photo-view/dist/react-photo-view.css";
 import type { Ads } from "../../types";
 import AdsActionCell from "./action-cell";
+import { getImageUrl } from "@/utils/images";
 
 export const columns: (pagintaion: Pagination | undefined) => ColumnDef<Ads>[] = (
   pagination
@@ -22,19 +23,17 @@ export const columns: (pagintaion: Pagination | undefined) => ColumnDef<Ads>[] =
           <div className="flex gap-1">
             {ads.image ? (
               <PhotoView
-                // src={getImageUrl({
-                //   resource: "optimize",
-                //   fileName: product?.optimize_images[0],
-                // })}
-                src={ads.image}
+                src={getImageUrl({
+                  resource: "images",
+                  fileName: ads.image,
+                })}
               >
                 <img
                   className="h-14 w-14 rounded-lg hover:cursor-pointer"
-                  // src={getImageUrl({
-                  //   resource: "optimize",
-                  //   fileName: product?.optimize_images[0],
-                  // })}
-                  src={ads.image}
+                  src={getImageUrl({
+                    resource: "images",
+                    fileName: ads.image,
+                  })}
                   alt={ads.product}
                 />
               </PhotoView>

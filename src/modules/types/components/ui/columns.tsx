@@ -6,6 +6,7 @@ import { PhotoProvider, PhotoView } from "react-photo-view";
 import "react-photo-view/dist/react-photo-view.css";
 import type { Type } from "../../types";
 import TypeActionCell from "./action-cell";
+import { getImageUrl } from "@/utils/images";
 
 export const columns: (
   pagintaion: Pagination | undefined
@@ -22,19 +23,17 @@ export const columns: (
           <div className="flex gap-1">
             {type.image ? (
               <PhotoView
-                // src={getImageUrl({
-                //   resource: "optimize",
-                //   fileName: product?.optimize_images[0],
-                // })}
-                src={type.image}
+                src={getImageUrl({
+                  resource: "images",
+                  fileName: type.image,
+                })}
               >
                 <img
                   className="h-14 w-14 rounded-lg hover:cursor-pointer"
-                  // src={getImageUrl({
-                  //   resource: "optimize",
-                  //   fileName: product?.optimize_images[0],
-                  // })}
-                  src={type.image}
+                  src={getImageUrl({
+                    resource: "images",
+                    fileName: type.image,
+                  })}
                   alt={type.name}
                 />
               </PhotoView>

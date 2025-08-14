@@ -22,8 +22,17 @@ import {
 } from "../../hooks/mutation";
 import { AdsSchema, type AdsSchemaType } from "../../schemas/index.schema";
 import type { Ads } from "../../types";
+import { getImageUrl } from "@/utils/images";
 
-export const AdsForm = ({ mode, ads,handleOpen }: { mode: string; ads?: Ads , handleOpen : (open : boolean) => void }) => {
+export const AdsForm = ({
+  mode,
+  ads,
+  handleOpen,
+}: {
+  mode: string;
+  ads?: Ads;
+  handleOpen: (open: boolean) => void;
+}) => {
   const isEdit = mode == "edit";
 
   const navigate = useNavigate();
@@ -51,6 +60,8 @@ export const AdsForm = ({ mode, ads,handleOpen }: { mode: string; ads?: Ads , ha
   const { mutateAsync: updateMutateAsync } = useUpdateAdsMutation();
 
   async function onSubmit(values: AdsSchemaType) {
+    console.log(values);
+    
     const data = new FormData();
     data.set("product", values.product);
     data.set("company", values.company);
@@ -63,6 +74,7 @@ export const AdsForm = ({ mode, ads,handleOpen }: { mode: string; ads?: Ads , ha
     let res: BaseApiResponse;
     if (isEdit) {
       data.set("id", ads?._id ?? "");
+
       res = await updateMutateAsync({ data });
     } else {
       res = await createMutateAsync({ data });
@@ -71,9 +83,8 @@ export const AdsForm = ({ mode, ads,handleOpen }: { mode: string; ads?: Ads , ha
       toast.success(isEdit ? "Updated Successfully" : "Created Successfully");
       queryClient.invalidateQueries({ queryKey: ["ads"] });
       queryClient.invalidateQueries({ queryKey: ["ads"] });
-      handleOpen(false)
+      handleOpen(false);
       navigate("/dashboard/ads");
-
     }
   }
   return (
@@ -134,7 +145,14 @@ export const AdsForm = ({ mode, ads,handleOpen }: { mode: string; ads?: Ads , ha
               <FormLabel>Image</FormLabel>
               <FormControl>
                 <FileUpload
-                  defaultImage={null}
+                  defaultImage={
+                    isEdit
+                      ? getImageUrl({
+                          resource: "images",
+                          fileName: ads?.image,
+                        })
+                      : null
+                  }
                   onFileChange={field.onChange}
                   accept="image/*"
                   name="image"

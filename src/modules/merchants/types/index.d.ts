@@ -21,4 +21,5 @@ export interface Merchant {
   NRCNumber?:string;
   NRCFront?: string;
   NRCBack?: string;  
+  optimize_logo ?: string
 }

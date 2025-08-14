@@ -1,6 +1,7 @@
 export interface BaseApiResponse {
  status : string;
  isSuccess: boolean;
+ message ?:string;
 }
 
 

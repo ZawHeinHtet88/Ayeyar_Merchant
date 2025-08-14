@@ -38,6 +38,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
     event.preventDefault();
   };
 
+
   const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     const file = event.dataTransfer.files?.[0] || null;

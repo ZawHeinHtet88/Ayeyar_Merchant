@@ -1,6 +1,9 @@
 import { api } from "@/lib/axios";
 import type { BasePagination } from "@/types/global";
-import type { getAllMerchantsApiResponse, getSingleMerchantApiResponse } from "../types/api";
+import type {
+  getAllMerchantsApiResponse,
+  getSingleMerchantApiResponse,
+} from "../types/api";
 // import type { getAllProductsApiResponse, getAllTypeApiResponse, getProductApiResponse } from "../types/api";
 
 export const getAllMerchants = async (filters: BasePagination) => {
@@ -11,7 +14,7 @@ export const getAllMerchants = async (filters: BasePagination) => {
   return res.data;
 };
 
-export const createMerchant = async ({data}:{data:FormData}) => {
+export const createMerchant = async ({ data }: { data: FormData }) => {
   const res = await api.post("/admin/sellers", data, {
     headers: {
       "Content-Type": "multipart/form-data",
@@ -34,20 +37,21 @@ export const deleteMerchant = async (id: string) => {
 // };
 
 export const getMerchant = async (id: string) => {
-  const res = await api.get<getSingleMerchantApiResponse>(`/admin/sellers/${id}`);
+  const res = await api.get<getSingleMerchantApiResponse>(
+    `/admin/sellers/${id}`
+  );
 
   return res.data;
 };
 
-export const updateMerchant = async ({merchant_id, data}:{merchant_id:string,data:FormData}) => {
+export const updateMerchant = async ({
+  data,
+}: {
+  data: FormData;
+}) => {
   const res = await api.patch(
     `/admin/sellers`,
-    {
-      data: {
-        ...data,
-        id: merchant_id,
-      },
-    },
+    data,
     {
       headers: {
         "Content-Type": "multipart/form-data",

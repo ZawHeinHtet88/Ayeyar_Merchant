@@ -18,17 +18,11 @@ export const createAds = async ({ data }: { data: FormData }) => {
   return res.data;
 };
 
-export const updateAds = async ({
-  data,
-}: {
-  data: FormData;
-}) => {
-  const res = await api.patch(`/admin/ads`, {
-    data
-  },{
-    headers : {
+export const updateAds = async ({ data }: { data: FormData }) => {
+  const res = await api.patch(`/admin/ads`, data, {
+    headers: {
       "Content-Type": "multipart/form-data",
-    }
+    },
   });
   return res.data;
 };

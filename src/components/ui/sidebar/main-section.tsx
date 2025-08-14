@@ -30,7 +30,7 @@ type SidebarItem = {
   url: string;
   icon: React.ElementType;
   children?: SidebarItem[];
-  key ?: string
+  key?: string;
 };
 
 const items: SidebarItem[] = [
@@ -71,36 +71,37 @@ const items: SidebarItem[] = [
     key: "admin",
   },
   {
-    title :"Types",
-    url : "/dashboard/types",
-    icon : Layers2,
-    key : "admin"
-  },{
-    title : "Customer Support",
-    url : "/dashboard/customers-support",
-    icon : Users,
-    key : "admin"
-  }
+    title: "Types",
+    url: "/dashboard/types",
+    icon: Layers2,
+    key: "admin",
+  },
+  {
+    title: "Customer Support",
+    url: "/dashboard/customers-support",
+    icon: Users,
+    key: "admin",
+  },
 
-  // {
-  //   title: "product",
-  //   url: "/products",
-  //   icon: LayoutDashboardIcon,
-  //   key: "",
-  //   children : [
-  //     {
-  //       title: "Dashboard",
-  //       url: "/dashboard",
-  //       icon: LayoutDashboardIcon,
-  //       key: "",
-  //     },
-  //   ]
-  // },
+  {
+    title: "Financial",
+    url: "/financial",
+    icon: LayoutDashboardIcon,
+    key: "seller",
+    children: [
+      {
+        title: "Payment Method",
+        url: "/dashboard/financial/payments",
+        icon: LayoutDashboardIcon,
+        key: "seller",
+      },
+    ],
+  },
 ];
 
 const MainSection = () => {
   const { pathname } = useLocation();
-  const {user} = useAuthStore(state=>state)
+  const { user } = useAuthStore((state) => state);
 
   return (
     <SidebarGroup>
@@ -109,6 +110,8 @@ const MainSection = () => {
         <SidebarMenu>
           {items.map((item) => {
             if (item.children) {
+              if (item.key !== user?.role) return;
+
               return (
                 <Collapsible className="group/collapsible" key={item.title}>
                   <SidebarMenuItem>
@@ -150,7 +153,7 @@ const MainSection = () => {
               );
             }
 
-            if((item.key !== user?.role)) return
+            if (item.key !== user?.role) return;
             return (
               <SidebarMenuItem key={item.title}>
                 <SidebarMenuButton

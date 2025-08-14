@@ -27,6 +27,7 @@ import {
 import type { Merchant } from "../../types";
 import type { BaseApiResponse } from "@/types/global";
 import { toast } from "sonner";
+import { getImageUrl } from "./../../../../utils/images";
 
 export const Merchantform = ({
   mode,
@@ -102,13 +103,15 @@ export const Merchantform = ({
     if (values.NRCFront) formData.set("NRCFront", values.NRCFront);
     if (values.NRCBack) formData.set("NRCBack", values.NRCBack);
 
-    formData.set("password", values.password);
-    formData.set("passwordConfirm", values.passwordConfirm);
+    if (values.password && values.passwordConfirm) {
+      formData.set("password", values.password);
+      formData.set("passwordConfirm", values.passwordConfirm);
+    }
 
     let res: BaseApiResponse;
     if (isEdit) {
+      formData.set("id", merchant?._id ?? "");
       res = await updateMutateAsync({
-        merchant_id: merchant?._id ?? "",
         data: formData,
       });
     } else {
@@ -116,7 +119,7 @@ export const Merchantform = ({
     }
 
     if (res.isSuccess) {
-      toast.success(res.status);
+      toast.success(res.message);
       queryClient.invalidateQueries({ queryKey: ["merchants"] });
 
       navigate("/dashboard/merchants");
@@ -285,37 +288,36 @@ export const Merchantform = ({
               </FormItem>
             )}
           />
-          {!isEdit && (
-            <>
-              <FormField
-                control={form.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Password</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Password..." {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
 
-              <FormField
-                control={form.control}
-                name="passwordConfirm"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Password Confirm</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Password Confirm..." {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </>
-          )}
+          <FormField
+            disabled={isEdit}
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Password</FormLabel>
+                <FormControl>
+                  <Input placeholder="Password..." {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            disabled={isEdit}
+            control={form.control}
+            name="passwordConfirm"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Password Confirm</FormLabel>
+                <FormControl>
+                  <Input placeholder="Password Confirm..." {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
           <FormField
             control={form.control}
@@ -325,7 +327,14 @@ export const Merchantform = ({
                 <FormLabel>Logo</FormLabel>
                 <FormControl>
                   <FileUpload
-                    defaultImage={null}
+                    defaultImage={
+                      isEdit
+                        ? getImageUrl({
+                            resource: "images",
+                            fileName: merchant?.logo,
+                          })
+                        : null
+                    }
                     onFileChange={field.onChange}
                     accept="image/*"
                     name="logo"
@@ -344,7 +353,14 @@ export const Merchantform = ({
                 <FormLabel>NRC Front</FormLabel>
                 <FormControl>
                   <FileUpload
-                    defaultImage={null}
+                    defaultImage={
+                      isEdit
+                        ? getImageUrl({
+                            resource: "images",
+                            fileName: merchant?.NRCFront,
+                          })
+                        : null
+                    }
                     onFileChange={field.onChange}
                     accept="image/*"
                     name="NRCFront"
@@ -363,7 +379,14 @@ export const Merchantform = ({
                 <FormLabel>NRC Back</FormLabel>
                 <FormControl>
                   <FileUpload
-                    defaultImage={null}
+                    defaultImage={
+                      isEdit
+                        ? getImageUrl({
+                            resource: "images",
+                            fileName: merchant?.NRCBack,
+                          })
+                        : null
+                    }
                     onFileChange={field.onChange}
                     accept="image/*"
                     name="NRCBack"
