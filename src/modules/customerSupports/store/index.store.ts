@@ -1,5 +1,4 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
 
 interface Message {
   message: string;
@@ -11,27 +10,16 @@ type SupportChatStore = {
   setMessages: (msgs: Message[]) => void;
 };
 
-export const useSupportChatStore = create<SupportChatStore>()(
-  persist(
-    (set) => ({
-      messages: [],
-      addMessage: (message) =>
-        set((state) => ({
-          messages: [...state.messages, message],
-        })),
-      setMessages: (messages) => set({ messages }),
+export const useSupportChatStore = create<SupportChatStore>()((set) => ({
+  messages: [],
+  addMessage: (message) =>
+    set((state) => ({
+      messages: [...state.messages, message],
+    })),
+  setMessages: (messages) => set({ messages }),
 
-      resetChat: () =>
-        set({
-          messages: [],
-        }),
+  resetChat: () =>
+    set({
+      messages: [],
     }),
-    {
-      name: "support-chat-storage-dashboard", // localStorage key
-      partialize: (state) => ({
-        // Choose which fields to store in localStorage
-        messages: state.messages,
-      }),
-    }
-  )
-);
+}));

@@ -14,6 +14,8 @@ import { Send } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
 import { useSupportChatStore } from "../store/index.store";
+import { useGetAllMessagesQuery } from "../hooks/queries";
+import BreadCrumps from "@/components/ui/breadcrumbs";
 
 export default function SupportChatRoom() {
   const { id: customerId } = useParams(); // recipient user id from route
@@ -21,12 +23,25 @@ export default function SupportChatRoom() {
   const { user } = useAuthStore((s) => s);
   const [input, setInput] = useState("");
   const { socket } = useSocket();
+  const { data, isFetched } = useGetAllMessagesQuery(customerId ?? "");
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (isFetched && data?.data) {
+      data?.data.map((msg) => {
+        addMessage({
+          sender: msg.sender === user?.id ? "user" : "customer",
+          message: msg.message,
+        });
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, isFetched]);
+
+  useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+  }, [messages, user?.id]);
 
   useEffect(() => {
     if (!socket) return;
@@ -34,7 +49,7 @@ export default function SupportChatRoom() {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const onReceive = (msg: any) => {
       console.log("Received message:", msg);
-      
+
       // Ignore if the message originated from me
       const senderId = String(msg?.sender?._id ?? msg?.sender ?? "");
       if (senderId === String(user?.id ?? "")) return;
@@ -73,21 +88,19 @@ export default function SupportChatRoom() {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
-      <section className="py-12 px-4 text-center">
-        <h1 className="text-4xl font-bold mb-4">We’re Here to Help</h1>
-        <p className="text-lg max-w-2xl mx-auto">
-          Need assistance? Our friendly support team and AI chatbot are ready to
-          answer your questions and guide you every step of the way.
-        </p>
-      </section>
-
-      <div className="flex items-center justify-center flex-1 p-4">
+      <BreadCrumps
+        breadcrumbs={[
+          { label: "Customers Support", href: "/dashboard/customers-support" },
+          { label: "Chat Room", href: `/dashboard/customres-support/${customerId}` },
+        ]}
+      />
+      <div className="flex items-center justify-center flex-1 p-4 mt-10">
         <Card className="w-full max-w-2xl shadow-xl border rounded-2xl p-0">
           <CardHeader className="bg-blue-600 text-white rounded-t-2xl pt-3">
             <CardTitle className="text-lg">Live Support Chat</CardTitle>
           </CardHeader>
 
-          <CardContent className="p-0 flex flex-col h-[70vh] overflow-y-scroll">
+          <CardContent className="p-0 flex flex-col h-[65vh] overflow-y-scroll">
             <ScrollArea className="flex-1 p-4 space-y-6">
               {messages.map((msg, idx) => (
                 <div

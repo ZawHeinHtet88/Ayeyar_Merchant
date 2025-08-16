@@ -2,10 +2,9 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ThemeProvider } from "./theme-provider";
 // import { SocketProvider } from "./socket-provider";
-import type { ReactNode } from "react";
-import { Socket } from "socket.io-client";
 import { SocketProvider } from "@/hooks/use-socket";
 import { useAuthStore } from "@/modules/auth/store/index.store";
+import type { ReactNode } from "react";
 
 const queryClient = new QueryClient({
   defaultOptions: {
