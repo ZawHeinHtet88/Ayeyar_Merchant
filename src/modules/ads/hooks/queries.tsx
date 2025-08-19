@@ -4,7 +4,7 @@ import type { BasePagination } from "@/types/global";
 
 export const useGetAllAdsQuery = (filters: BasePagination) => {
   return useQuery({
-    queryKey: ["ads"],
+    queryKey: ["ads",filters],
     queryFn: () => getAllAds(filters),
   });
 };

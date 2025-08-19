@@ -34,24 +34,18 @@ export const createType = async ({ data }: { data: FormData }) => {
   return res.data;
 };
 
-export const updateAds = async ({
-  data,
-}: {
-  data: FormData;
-}) => {
-  const res = await api.patch(`/admin/ads`, {
-    data
+export const updateAds = async ({ data }: { data: FormData }) => {
+  const res = await api.patch(`/admin/types`, {
+    data,
   });
   return res.data;
 };
 
-
 export const updateType = async ({ data }: { data: FormData }) => {
   const res = await api.patch(
-    `/admin/ads`,
-    {
-      data,
-    },
+    `/admin/types`,
+
+    data,
     {
       headers: {
         "Content-Type": "multipart/form-data",
@@ -70,7 +64,6 @@ export const deleteAds = async (ads_id: string) => {
   return res.data;
 };
 
-
 export const deleteType = async (type_id: string) => {
   const res = await api.delete(`/admin/types`, {
     data: {
@@ -79,4 +72,3 @@ export const deleteType = async (type_id: string) => {
   });
   return res.data;
 };
-

@@ -25,6 +25,7 @@ import {
   type TypeSchemaType
 } from "../../schemas/index.schema";
 import type { Type } from "../../types";
+import { getImageUrl } from "@/utils/images";
 
 export const TypeForm = ({
   mode,
@@ -108,7 +109,7 @@ export const TypeForm = ({
               <FormLabel>Image</FormLabel>
               <FormControl>
                 <FileUpload
-                  defaultImage={null}
+                  defaultImage={isEdit ? getImageUrl({resource:"images",fileName:type?.image}): null}
                   onFileChange={field.onChange}
                   accept="image/*"
                   name="image"

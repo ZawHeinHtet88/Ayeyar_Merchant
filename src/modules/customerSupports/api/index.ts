@@ -8,9 +8,7 @@ export const getContacts = async () => {
 };
 
 export const getAllMessages = async (id: string) => {
-  const res = await api.post<getAllMessageApiResponse>("/message", {
-    data: { id },
-  });
+  const res = await api.post<getAllMessageApiResponse>("/message", {id});
 
   return res.data;
 };

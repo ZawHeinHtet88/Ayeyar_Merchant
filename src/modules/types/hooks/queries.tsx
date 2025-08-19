@@ -11,7 +11,7 @@ export const useGetAllAdsQuery = (filters: BasePagination) => {
 
 export const useGetAllTypeQuery = (filters:BasePagination) => {
   return useQuery({
-    queryKey : ["types"],
+    queryKey : ["types",filters],
     queryFn: () => getAllTypes(filters)
   })
 }

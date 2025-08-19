@@ -22,7 +22,7 @@ export default function TypeActionCell({ type }: { type: Type }) {
   ();
   const queryClient = useQueryClient();
   if (isSuccess) {
-    queryClient.invalidateQueries({ queryKey: ["ads"] });
+    queryClient.invalidateQueries({ queryKey: ["types"] });
   }
   return (
     <AlertDialog>
@@ -37,7 +37,7 @@ export default function TypeActionCell({ type }: { type: Type }) {
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
-            Are you 100% sure that you want to delete the ads name with{" "}
+            Are you 100% sure that you want to delete the type name with{" "}
             {type.name}?
           </AlertDialogDescription>
         </AlertDialogHeader>

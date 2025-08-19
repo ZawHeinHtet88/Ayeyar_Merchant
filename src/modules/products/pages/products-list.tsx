@@ -14,12 +14,10 @@ export default function ProductListPage() {
     pageSize: 10,
   });
 
-  const { data, isLoading } = useGetAllProductQuery({
+  const { data } = useGetAllProductQuery({
     page: pagination.pageIndex + 1,
     limit: pagination.pageSize,
-  });   
-
-  if (isLoading) return "loading";
+  });
 
   return (
     <section className="flex flex-col gap-4">
