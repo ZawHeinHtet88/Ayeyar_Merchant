@@ -95,6 +95,18 @@ const items: SidebarItem[] = [
         icon: LayoutDashboardIcon,
         key: "seller",
       },
+      {
+        title: "Payment History",
+        url: "/dashboard/financial/payment-history",
+        icon: LayoutDashboardIcon,
+        key: "seller",
+      },
+      {
+        title: "Widthdraw",
+        url: "/dashboard/financial/withdraw",
+        icon: LayoutDashboardIcon,
+        key: "seller",
+      },
     ],
   },
 ];
