@@ -46,6 +46,7 @@ export const AdsForm = ({
           product: ads?.product,
           link: ads?.link,
           image: ads?.image,
+          companyImg: ads?.companyImg,
         }
       : {
           company: "",
