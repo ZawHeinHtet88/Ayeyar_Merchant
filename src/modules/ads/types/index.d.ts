@@ -4,4 +4,5 @@ export interface Ads {
   product: string;
   link: string;
   image: string;
+  companyImg : string;
 }

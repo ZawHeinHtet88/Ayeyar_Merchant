@@ -71,6 +71,10 @@ export const AdsForm = ({
       data.set("image", values.image);
     }
 
+    if(values.companyImg){
+      data.set("companyImg", values.companyImg);
+    }
+
     let res: BaseApiResponse;
     if (isEdit) {
       data.set("id", ads?._id ?? "");
@@ -91,7 +95,7 @@ export const AdsForm = ({
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className={cn("grid grid-cols-2 gap-6 w-2xl")}
+        className={cn("grid grid-cols-3 gap-6 max-w-4xl")}
       >
         <div className="flex flex-col gap-5">
           <FormField
@@ -163,7 +167,33 @@ export const AdsForm = ({
           )}
         />
 
-        <div className="flex justify-between col-span-2">
+        <FormField
+          control={form.control}
+          name="companyImg"
+          render={({ field }) => (
+            <FormItem className="">
+              <FormLabel>Company Image</FormLabel>
+              <FormControl>
+                <FileUpload
+                  defaultImage={
+                    isEdit
+                      ? getImageUrl({
+                          resource: "images",
+                          fileName: ads?.image,
+                        })
+                      : null
+                  }
+                  onFileChange={field.onChange}
+                  accept="image/*"
+                  name="companyImg"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <div className="flex justify-between col-span-3">
           <Button
             disabled={form.formState.isSubmitting || !form.formState.isDirty}
             type="submit"

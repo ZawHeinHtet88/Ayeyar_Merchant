@@ -50,6 +50,43 @@ export const columns: (pagintaion: Pagination | undefined) => ColumnDef<Ads>[] =
     },
   },
   {
+    id: "companyImg",
+    header: "Company Image",
+    cell: ({ row }) => {
+      const ads = row.original;
+
+      return (
+        <PhotoProvider>
+          <div className="flex gap-1">
+            {ads.image ? (
+              <PhotoView
+                src={getImageUrl({
+                  resource: "images",
+                  fileName: ads.companyImg,
+                })}
+              >
+                <img
+                  className="h-14 w-14 rounded-lg hover:cursor-pointer"
+                  src={getImageUrl({
+                    resource: "images",
+                    fileName: ads.companyImg,
+                  })}
+                  alt={ads.product}
+                />
+              </PhotoView>
+            ) : (
+              <img
+                className="h-14 w-14 rounded-lg object-cover"
+                src={`/defaultImage/default_img_1.png`}
+                alt={ads.product}
+              />
+            )}
+          </div>
+        </PhotoProvider>
+      );
+    },
+  },
+  {
     id: "companyName",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Company Name" />
@@ -70,7 +107,6 @@ export const columns: (pagintaion: Pagination | undefined) => ColumnDef<Ads>[] =
     ),
     accessorKey: "link",
   },
-  
 
   {
     id: "action",

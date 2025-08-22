@@ -17,11 +17,14 @@ export const ProductSchema = z
 
 export type ProductSchemaType = z.infer<typeof ProductSchema>;
 
-export const AdsSchema = z.object({
-  company : z.string().min(1),
-  product : z.string().min(1),
-  link : z.string().min(1),
-  image : z.any().optional()
-}).strict()
+export const AdsSchema = z
+  .object({
+    company: z.string().min(1),
+    product: z.string().min(1),
+    link: z.string().min(1),
+    image: z.any().optional(),
+    companyImg: z.any().optional(),
+  })
+  .strict();
 
 export type AdsSchemaType = z.infer<typeof AdsSchema>;
