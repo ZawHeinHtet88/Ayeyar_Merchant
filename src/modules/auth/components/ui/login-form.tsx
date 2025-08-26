@@ -38,19 +38,23 @@ export const LoginForm = () => {
       toast.error(res.message);
     } else {
       console.log(res.data.user);
-      
+
       login({
         token: res.token,
         user: res.data.user,
       });
       toast.success("login successfully");
-      navigate("/");
+      if (res.data.user.role) navigate("/dashboard/merchants");
+      else navigate("/");
     }
   };
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6 py-10 px-10 bg-white rounded-2xl">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="w-full space-y-6 py-10 px-10 bg-white rounded-2xl"
+      >
         <FormField
           control={form.control}
           name="email"

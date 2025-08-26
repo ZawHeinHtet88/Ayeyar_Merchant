@@ -11,6 +11,7 @@ import {
 import {
   ChevronsUpDown,
   Cloud,
+  FileDown,
   Layers2,
   LayoutDashboardIcon,
   Podcast,
@@ -35,12 +36,12 @@ type SidebarItem = {
 };
 
 const items: SidebarItem[] = [
-  {
-    title: "Dashboard",
-    url: "/dashboard",
-    icon: LayoutDashboardIcon,
-    key: "admin",
-  },
+  // {
+  //   title: "Dashboard",
+  //   url: "/dashboard",
+  //   icon: LayoutDashboardIcon,
+  //   key: "admin",
+  // },
   {
     title: "Dashboard",
     url: "/dashboard",
@@ -65,6 +66,7 @@ const items: SidebarItem[] = [
     icon: ReceiptIcon,
     key: "seller",
   },
+
   {
     title: "Merchants",
     url: "/dashboard/merchants",
@@ -115,6 +117,12 @@ const items: SidebarItem[] = [
         key: "seller",
       },
     ],
+  },
+  {
+    title: "Withdrawal",
+    url: "/dashboard/withdrawal",
+    icon: FileDown,
+    key: "admin",
   },
 ];
 

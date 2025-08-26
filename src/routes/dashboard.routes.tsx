@@ -1,15 +1,16 @@
 
-import type { RouteObject } from "react-router";
-import DashboardLayout from "../components/layouts/dashboard-layout";
 import AuthGuard from "@/middlewares/auth-guard";
-import { productRoutes } from "@/modules/products/routes";
-import { homeRoute } from '@/modules/home/routes';
-import { orderRoutes } from "@/modules/orders/routes";
-import { merchantRoutes } from "@/modules/merchants/routes";
 import { adsRoutes } from "@/modules/ads/routes";
-import { typeRoutes } from "@/modules/types/routes";
 import { customerSupportRoutes } from "@/modules/customerSupports/routes";
 import { financialRoutes } from "@/modules/finicial/routes";
+import { homeRoute } from '@/modules/home/routes';
+import { merchantRoutes } from "@/modules/merchants/routes";
+import { orderRoutes } from "@/modules/orders/routes";
+import { productRoutes } from "@/modules/products/routes";
+import { typeRoutes } from "@/modules/types/routes";
+import { withdrawalRoute } from "@/modules/withdrawals/routes";
+import type { RouteObject } from "react-router";
+import DashboardLayout from "../components/layouts/dashboard-layout";
 
 export const dashboardRoutes: RouteObject[] = [
   {
@@ -27,7 +28,8 @@ export const dashboardRoutes: RouteObject[] = [
       ...adsRoutes,
       ...typeRoutes,
       ...customerSupportRoutes,
-      ...financialRoutes
+      ...financialRoutes,
+      ...withdrawalRoute
     ],
   },
 ];
