@@ -62,7 +62,7 @@ export const AdsForm = ({
 
   async function onSubmit(values: AdsSchemaType) {
     console.log(values);
-    
+
     const data = new FormData();
     data.set("product", values.product);
     data.set("company", values.company);
@@ -72,7 +72,7 @@ export const AdsForm = ({
       data.set("image", values.image);
     }
 
-    if(values.companyImg){
+    if (values.companyImg) {
       data.set("companyImg", values.companyImg);
     }
 
@@ -92,6 +92,7 @@ export const AdsForm = ({
       navigate("/dashboard/ads");
     }
   }
+  
   return (
     <Form {...form}>
       <form

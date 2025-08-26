@@ -1,6 +1,6 @@
 import { api } from "@/lib/axios";
 import type { BasePagination } from "@/types/global";
-import type { getAllProductsApiResponse, getAllTypeApiResponse, getProductApiResponse } from "../types/api";
+import type { getAllProductsApiResponse, getAllTypeApiResponse, getGeneratedProductApiResponse, getProductApiResponse } from "../types/api";
 
 export const getAllProducts = async (filters: BasePagination) => {
   const res = await api.get<getAllProductsApiResponse>("/seller/products", {
@@ -49,3 +49,11 @@ export const updateProduct = async (data: FormData) => {
 
   return res.data;
 };
+
+export const getGeneratedProduct = async () => {
+  const res = await api.get<getGeneratedProductApiResponse>(
+    `/seller/generate-products-by-ai`
+  );
+
+  return res.data
+}

@@ -1,6 +1,6 @@
+import type { BasePagination } from "@/types/global"
 import { useQuery } from "@tanstack/react-query"
 import { getAllProducts, getAllProductType, getProduct } from "../api"
-import type { BasePagination } from "@/types/global"
 
 export const useGetAllProductQuery = (filters:BasePagination) => {
     return useQuery({
@@ -22,3 +22,4 @@ export  const useGetProductQuery = (id:string) => {
     queryFn : () => getProduct(id)
   })
 }
+

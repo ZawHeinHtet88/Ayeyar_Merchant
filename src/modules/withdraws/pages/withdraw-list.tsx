@@ -35,9 +35,9 @@ function WithDrawList() {
           <div className="flex flex-col gap-4">
             <div className="flex items-center justify-between">
               <Badge className="text-sm font-semibold">
-                Total Amount: {amountData?.totalAmout || 0} MMK
+                Total Amount: {amountData?.totalAmount || 0} MMK
               </Badge>
-              <WithDrawSheet totalAmount={amountData?.totalAmout || 0}/>
+              <WithDrawSheet totalAmount={amountData?.totalAmount || 0}/>
             </div>
             <DataTable
               columns={columns(data?.pagination)}

@@ -64,3 +64,12 @@ export interface Merchant {
   updatedAt: number;
   id: number;
 }
+
+export interface SuggestProducts {
+  name: string;
+  description: string;
+  body: string;
+  price: number;
+  tags: string[];
+  category: string;
+}

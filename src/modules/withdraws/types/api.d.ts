@@ -8,5 +8,5 @@ export interface getAllWithdrawApiResponse extends BaseApiResponse {
 
 export interface getTotalAmountApiResponse  {
   isSuccess : boolean,
-  totalAmout :number
+  totalAmount :number
 }

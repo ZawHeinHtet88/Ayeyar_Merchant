@@ -29,12 +29,12 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    // if (error.response) {
-    //   if (error.response.status === 401) {
-    //     useAuthStore.getState().logout(); // Auto logout on 401
-    //     window.location.href = "/login";
-    //   }
-    // }
+    if (error.response) {
+      // if (error.response.status === 403) {
+      //   useAuthStore.getState().logout(); // Auto logout on 401
+      //   window.location.href = "/login";
+      // }
+    }
     if (error) {
       toast.error(error.response.data.message);
     } else {
