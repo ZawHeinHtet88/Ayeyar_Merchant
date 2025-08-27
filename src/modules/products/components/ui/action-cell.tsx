@@ -1,7 +1,4 @@
-import React from "react";
-import { useDeleteProdcutMutation } from "../../hooks/mutation";
 import ActionButton from "@/components/ui/action-button";
-import type { Product } from "../../types";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -13,10 +10,12 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Link } from "react-router";
 import { Button } from "@/components/ui/button";
-import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
+import { Link } from "react-router";
+import { toast } from "sonner";
+import { useDeleteProdcutMutation } from "../../hooks/mutation";
+import type { Product } from "../../types";
 
 export default function ProductActionCell({ product }: { product: Product }) {
   const { mutateAsync, isSuccess } = useDeleteProdcutMutation();
