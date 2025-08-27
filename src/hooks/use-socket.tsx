@@ -1,7 +1,6 @@
 // SocketContext.tsx
 import {
   createContext,
-  
   useContext,
   useEffect,
   useState,
@@ -38,7 +37,7 @@ export function SocketProvider({ children, userInfo }: SocketProviderProps) {
   useEffect(() => {
     if (!userInfo) return;
 
-    const newSocket = io("http://localhost:3000", {
+    const newSocket = io(import.meta.env.import.meta.env.VITE_SOCKET_URL, {
       withCredentials: true,
       query: { userId: userInfo._id },
     });
