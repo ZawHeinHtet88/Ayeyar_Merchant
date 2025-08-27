@@ -120,7 +120,7 @@ const items: SidebarItem[] = [
   },
   {
     title: "Withdrawal",
-    url: "/dashboard/withdrawal",
+    url: "/dashboard/withdrawals",
     icon: FileDown,
     key: "admin",
   },
