@@ -1,19 +1,21 @@
 import { useAuthStore } from "@/modules/auth/store/index.store";
-import { Truck, User } from "lucide-react";
+import { User } from "lucide-react";
+import { toast } from "sonner";
 import { Avatar, AvatarFallback, AvatarImage } from "../avatar";
 import { Button } from "../button";
 import { Popover, PopoverContent, PopoverTrigger } from "../popover";
 import { Separator } from "../separator";
-import { toast } from "sonner";
-import { Link } from "react-router-dom";
+import { useBulkUploadProductStore } from "@/modules/bulk-upload-products/store/index.store";
 
 function Navprofile() {
   const { isAuthenticated, logout, user } = useAuthStore((state) => state);
+  const { reset } = useBulkUploadProductStore((state) => state);
 
   if (!isAuthenticated) return;
 
   const handleLogout = () => {
     logout();
+    reset();
     toast.success("Logout Successfully");
   };
   return (
@@ -43,10 +45,7 @@ function Navprofile() {
             Profile
           </div>
           <Separator />
-          <Link to="/orders" className="flex items-center px-4 gap-2 bg-primary/5  hover:bg-primary/10 py-2  rounded-lg">
-            <Truck />
-            Orders List
-          </Link>
+
           <Button onClick={handleLogout} className="w-full">
             Logout
           </Button>
