@@ -44,7 +44,7 @@ export const LoginForm = () => {
         user: res.data.user,
       });
       toast.success("login successfully");
-      if (res.data.user.role) navigate("/dashboard/merchants");
+      if (res.data.user.role==="admin") navigate("/dashboard/merchants");
       else navigate("/");
     }
   };
