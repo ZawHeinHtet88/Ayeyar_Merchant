@@ -174,7 +174,7 @@ export const ProductForm = ({
     <div>
       <Card className="py-3 mb-5 bg-gray-200">
         <CardHeader className="flex items-center justify-between">
-          <CardTitle>⚡ Success! Your changes have been saved</CardTitle>
+          <CardTitle>⚡ Safe your time generate pre-insert data with Ai</CardTitle>
           <Button
             onClick={handleGenerateProduct}
             className=" h-7 rounded-full p-4"
