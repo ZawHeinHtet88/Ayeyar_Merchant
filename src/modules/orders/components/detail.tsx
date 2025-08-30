@@ -13,6 +13,7 @@ import { Eye } from "lucide-react";
 import type { Order } from "../types";
 
 export function OrderDetails({ order }: { order: Order }) {
+  const userAdress = order.user.address;
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -22,9 +23,13 @@ export function OrderDetails({ order }: { order: Order }) {
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>
-          <SheetTitle>Orders Details</SheetTitle>
+          <SheetTitle>Orders Details</SheetTitle>city
           <SheetDescription>
             {order.code}
+            <p>
+              Address - {userAdress.street},{userAdress.city},{userAdress.state}
+              ,{userAdress.country}
+            </p>
             <h4 className="font-bold">Products - {order.products.length}</h4>
           </SheetDescription>
         </SheetHeader>

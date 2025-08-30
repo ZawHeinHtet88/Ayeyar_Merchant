@@ -1,6 +1,6 @@
 import { api } from "@/lib/axios";
 import type { BasePagination } from "@/types/global";
-import type { getAllOrdersApiResponse } from "../types/api";
+import type { getAllOrdersApiResponse, getAllSaleHistoriesApiResponse } from "../types/api";
 
 export const getOrders = async (filters: BasePagination) => {
   const res = await api.get<getAllOrdersApiResponse>("/seller/orders", {
@@ -22,3 +22,8 @@ export const updateOrder = async ({
   });
   return res.data;
 };
+
+export const saleHistory = async () => {
+  const res = await api.get<getAllSaleHistoriesApiResponse>("/seller/summary")
+  return res.data
+}

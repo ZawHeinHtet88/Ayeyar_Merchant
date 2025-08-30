@@ -12,7 +12,12 @@ export interface Order {
   user: {
     name: string;
     email: string;
-    shippingAddresses: string[];
+    address: {
+      street: "yone pote";
+      city: "hmawbi";
+      state: "yangon";
+      country: "myanmar";
+    };
   };
   isPaid: boolean;
   payment: string;
@@ -21,4 +26,42 @@ export interface Order {
   products: OrderProduct[];
   totalAmount: number;
   code: string;
+}
+
+export interface soldProduct {
+  id: string;
+  name: string;
+  price: number;
+  quantitySold: number;
+  totalRevenue: number;
+  orderCount: number;
+  codSales: number;
+  stripeSales: number;
+  codRevenue: number;
+  stripeRevenue: number;
+}
+
+export interface SaleHistory {
+  overview: {
+    totalProducts: number;
+    soldProducts: number;
+    totalQuantitySold: number;
+    totalAmount: number;
+    totalCodAmount: number;
+    totalStripeAmount: number;
+    totalOrders: number;
+  };
+  soldProducts: soldProduct[];
+  paymentBreakdown: {
+    cod: {
+      amount: number;
+      percentage: string;
+      orders: number;
+    };
+    stripe: {
+      amount: number;
+      percentage: string;
+      orders: number;
+    };
+  };
 }
