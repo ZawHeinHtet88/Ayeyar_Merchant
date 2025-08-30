@@ -103,9 +103,10 @@ export const UpdateOrderForm = ({ order }: { order: Order }) => {
                         {[
                           "pending",
                           "processing",
-                          "confirm",
+                          "shipped",
+                          "confirmed",
                           "cancel",
-                          "delivery",
+                          "delivered",
                           "success",
                           "expired",
                         ]?.map((status) => (
