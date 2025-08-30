@@ -18,7 +18,7 @@ export const useGetAllTypeQuery = () => {
 
 export  const useGetProductQuery = (id:string) => {
   return useQuery({
-    queryKey : ["product"],
+    queryKey : ["product",id],
     queryFn : () => getProduct(id)
   })
 }
